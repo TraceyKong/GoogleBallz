@@ -5,7 +5,7 @@ export default class Ball{
     }
 
     draw(ctx){
-        ctx.drawImage(this.image, 10, 10, 21, 8);
+        ctx.drawImage(this.image, 50, 10, 21, 8);
     }
 
     update(){
