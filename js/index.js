@@ -9,6 +9,8 @@ var ball = new Ball(GAME_WIDTH, GAME_HEIGHT);
 
 ball.draw(ctx);
 
+new InputHandler(ball);
+
 let lastTime = 0;
 
 function gameLoop(timestamp){

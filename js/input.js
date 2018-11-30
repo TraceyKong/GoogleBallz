@@ -1,7 +1,13 @@
 class InputHandler{
-    constructor(){
+    constructor(ball){
         document.addEventListener('keydown', event => {
-            alert(event.keyCode);
+
+            switch(event.keyCode){
+                case 32:
+                    ball.move();
+                    break;
+            };
+
         })
     }
 }
