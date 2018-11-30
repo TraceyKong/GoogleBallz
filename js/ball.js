@@ -25,7 +25,6 @@ class Ball{
     }
 
     move(){
-        this.updateSlope();
         this.moving = !this.moving;
         if(this.moving){
             this.speed.x = 2;
@@ -39,12 +38,14 @@ class Ball{
     rotateRight(){
         if(!this.moving && this.angle > 0){
             this.angle -= 5;
+            this.updateSlope();
         };
     }
 
     rotateLeft(){
         if(!this.moving && this.angle < 360){
             this.angle += 5;
+            this.updateSlope();
         };
     }
 
@@ -59,7 +60,7 @@ class Ball{
             y: gameHeight - this.image.height-100,
         }
 
-        this.moving = false;
+        this.moving = false; 
         this.speed = {x: 0, y: 0};
     }
 
