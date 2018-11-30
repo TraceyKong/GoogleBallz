@@ -1,14 +1,19 @@
-export default class Ball{
+class Ball{
 
-    constructor(){
+    constructor(gameWidth, gameHeight){
         this.image = document.getElementById("ball");
+        this.position = {
+            x: gameWidth/2 - this.image.width/2,
+            y: gameHeight - this.image.height-30,
+        }
     }
 
     draw(ctx){
-        ctx.drawImage(this.image, 50, 10, 21, 8);
+        ctx.drawImage(this.image, this.position.x, this.position.y);
     }
 
-    update(){
-
+    update(deltaTime){
+        if(!deltaTime) return;
+        this.position.x += 5/deltaTime; 
     }
 }
