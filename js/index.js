@@ -2,6 +2,10 @@ let canvas = document.getElementById("gameScreen");
 
 let ctx = canvas.getContext("2d");
 
+let resetBtn = document.getElementById("reset");
+
+let angle = document.getElementById("angle");
+
 const GAME_WIDTH = 500;
 const GAME_HEIGHT = 700;
 
@@ -19,6 +23,7 @@ function gameLoop(timestamp){
 
     ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
     ball.update(deltaTime);
+    angle.innerHTML = ball.getAngle();
     ball.draw(ctx);
 
     requestAnimationFrame(gameLoop);
