@@ -70,11 +70,12 @@ class Ball{
 
         if(this.position.x < 0 || this.position.x > this.gameWidth-this.image.width){
             this.slope.x = -this.slope.x;
-            this.angle += 90*(this.slope.x/Math.abs(this.slope.x));
+            if(this.slope.y <= 0) this.angle = 180 - this.angle;
+            else this.angle = 360-(this.angle-180);
         }
         if(this.position.y < 0 || this.position.y > this.gameHeight-this.image.height){
             this.slope.y = -this.slope.y;
-            this.angle += 90*(this.slope.y/Math.abs(this.slope.y));
+            this.angle = 360 - this.angle;
         }
     }
 }
