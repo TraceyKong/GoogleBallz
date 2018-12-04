@@ -4,8 +4,10 @@ class InputHandler{
 
             switch(event.keyCode){
                 case 32:
-                    ball.move();
-                    break;
+                    if(!ball.isMoving()){
+                        ball.move();
+                        break;
+                    };
 
                 case 37:
                     ball.rotateLeft();
