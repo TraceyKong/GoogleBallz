@@ -22,12 +22,9 @@ resetBtn.onclick = function(){
 
 let lastTime = 0;
 
-function gameLoop(timestamp){
-    let deltaTime = timestamp - lastTime;
-    lastTime = timestamp;
-
+function gameLoop(){
     ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
-    ball.update(deltaTime);
+    ball.update();
     angle.innerHTML = ball.getAngle();
     ball.draw(ctx);
 

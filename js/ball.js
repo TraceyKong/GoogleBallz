@@ -1,12 +1,13 @@
 class Ball{
 
     constructor(gameWidth, gameHeight){
-        this.image = document.getElementById("ball");
         this.gameWidth = gameWidth;
         this.gameHeight = gameHeight;
+        this.radius = 10;
         this.position = {
-            x: gameWidth/2 - this.image.width/2,
-            y: gameHeight - this.image.height
+            // x: gameWidth/2 - this.radius,
+            x: gameWidth / 2 + this.radius,
+            y: gameHeight - this.radius
         };
 
         this.slope = {x: 0, y: -1};
@@ -25,7 +26,11 @@ class Ball{
     }
 
     draw(ctx){
-        ctx.drawImage(this.image, this.position.x, this.position.y);
+        ctx.beginPath();
+        ctx.arc(this.position.x, this.position.y, this.radius, 0, 2 * Math.PI, false);
+        ctx.fillStyle = "green";
+        ctx.fill();
+        ctx.stroke();
     }
 
     move(){
@@ -56,19 +61,21 @@ class Ball{
     }
 
     updateAngle(){
-        if(this.position.x < 0 || this.position.x > this.gameWidth-this.image.width){
-            if(this.slope.y <= 0) this.angle = 180 - this.angle;
-            else this.angle = 360-(this.angle-180);
-        };
-        if(this.position.y < 0){
-            this.angle = 360 - this.angle;
+        if(this.moving){
+            if(this.position.x < 0 + this.radius || this.position.x > this.gameWidth-this.radius){
+                if(this.slope.y <= 0) this.angle = 180 - this.angle;
+                else this.angle = 360-(this.angle-180);
+            };
+            if(this.position.y < 0 + this.radius){
+                this.angle = 360 - this.angle;
+            };
         };
     }
 
     reset(){
         this.position = {
-            x: this.gameWidth/2 - this.image.width/2,
-            y: this.gameHeight - this.image.height
+            x: this.gameWidth/2 - this.radius,
+            y: this.gameHeight - this.radius
         };
 
         this.moving = false; 
@@ -76,15 +83,16 @@ class Ball{
         this.angle = 90;
     }
 
-    update(deltaTime){
+    update(){
         this.updateAngle();
         this.updateSlope();
 
         this.position.x += this.speed.x * this.slope.x;
         this.position.y += this.speed.y * this.slope.y;
 
-        if(this.moving && this.position.y >= this.gameHeight - this.image.height){
+        if(this.moving && this.position.y >= this.gameHeight - this.radius){
             this.stop();
+            this.position.y = this.gameHeight - this.radius;
             this.angle = 90;
         };
     }
