@@ -9,24 +9,28 @@ let angleDisplay = document.getElementById("angle");
 const GAME_WIDTH = 500;
 const GAME_HEIGHT = 700;
 
-var ball = new Ball(GAME_WIDTH, GAME_HEIGHT);
+var balls = [];
 
-ball.draw(ctx);
-
-new InputHandler(ball);
+for(var i=0; i<5; i++){
+    balls.push(new Ball(GAME_WIDTH, GAME_HEIGHT, i));
+    balls[i].draw(ctx);
+    new InputHandler(balls[i]);
+}
 
 resetBtn.onclick = function(){
-    ball.reset();
+    for(var i=0; i<5; i++){
+        balls[i].reset();
+    }
     this.blur();
 };
 
-let lastTime = 0;
-
 function gameLoop(){
     ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
-    ball.update();
-    angle.innerHTML = ball.getAngle();
-    ball.draw(ctx);
+    for(var i=0; i<5; i++){
+        balls[i].update();
+        balls[i].draw(ctx);
+    }
+    angle.innerHTML = balls[0].getAngle();
 
     requestAnimationFrame(gameLoop);
 }
