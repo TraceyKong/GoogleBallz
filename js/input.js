@@ -13,12 +13,12 @@ class InputHandler{
                     };
 
                 //left arrow key
-                case 37:
+                case 37:  
                     ball.rotateLeft();
                     break;
 
                 //right arrow key
-                case 39:
+                case 39: 
                     ball.rotateRight();
                     break;
             };

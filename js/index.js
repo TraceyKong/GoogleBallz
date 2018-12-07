@@ -11,14 +11,14 @@ const GAME_HEIGHT = 700;
 
 var balls = [];
 
-for(var i=0; i<5; i++){
+for(var i=0; i<9; i++){
     balls.push(new Ball(GAME_WIDTH, GAME_HEIGHT, i));
     balls[i].draw(ctx);
     new InputHandler(balls[i]);
 }
 
 resetBtn.onclick = function(){
-    for(var i=0; i<5; i++){
+    for(var i=0; i<balls.length; i++){
         balls[i].reset();
     }
     this.blur();
@@ -26,11 +26,11 @@ resetBtn.onclick = function(){
 
 function gameLoop(){
     ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
-    for(var i=0; i<5; i++){
+    for(var i=0; i<balls.length; i++){
         balls[i].update();
         balls[i].draw(ctx);
     }
-    angle.innerHTML = balls[0].getAngle();
+    angleDisplay.innerHTML = balls[0].getAngle();
 
     requestAnimationFrame(gameLoop);
 }
