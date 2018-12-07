@@ -6,7 +6,7 @@ class Ball{
 
         this.radius = 10;
         this.position = {
-            x: gameWidth / 2 - this.radius / 2,
+            x: gameWidth / 2,
             y: gameHeight - this.radius
         };
 
@@ -92,7 +92,7 @@ class Ball{
     //resets game
     reset(){
         this.position = {
-            x: this.gameWidth / 2 - this.radius / 2,
+            x: this.gameWidth / 2,
             y: this.gameHeight - this.radius
         };
 
