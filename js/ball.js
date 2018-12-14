@@ -42,6 +42,26 @@ class Ball{
         this.speed = { x: 0, y: 0 };
     }
 
+    //if ball touches a brick
+    brickTouched(bricks){
+        for(var i=0; i<bricks.length; i++){
+            if(this.position.x > bricks[i].getLeft() && this.position.x < bricks[i].getRight()){
+                //handles top and bottom of the brick
+                if(this.position.y > bricks[i].getTop() - this.radius && this.position.y < bricks[i].getBottom() + this.radius){
+                    this.reverseY();
+                    bricks[i].decreasePower();
+                }
+            }else if(this.position.y > bricks[i].getTop() && this.position.y < bricks[i].getBottom()){
+                //handles left and right of the brick
+                if(this.position.x > bricks[i].getLeft() - this.radius && this.position.x < bricks[i].getRight() + this.radius){
+                    this.reverseX();
+                    bricks[i].decreasePower();
+                }
+            }
+            //still need to handle corners
+        }
+    }
+
     //recalculates the slope
     updateSlope(){
         this.slope.x = Math.cos(this.angle * (Math.PI / 180));
@@ -49,25 +69,35 @@ class Ball{
     }
 
     //updates angle
-    updateAngle(angle){
+    updateAngle(angle, bricks){
         if(this.isMoving()){
-            //if ball touches left or right
+            //if ball touches a left or right wall
             if(this.position.x < 0 + this.radius || this.position.x > this.gameWidth-this.radius){
-                if(this.slope.y <= 0) this.angle = 180 - this.angle;
-                else this.angle = 360-(this.angle-180);
+                this.reverseX();
             };
-            //if ball touches top
+            //if ball touches a top wall
             if(this.position.y < 0 + this.radius){
-                this.angle = 360 - this.angle;
+                this.reverseY();
             };
+            this.brickTouched(bricks);
+            
         }else{
             this.angle = angle;
         };
     }
 
+    reverseX(){
+        if(this.slope.y <= 0) this.angle = 180 - this.angle;
+        else this.angle = 360-(this.angle-180);
+    }
+
+    reverseY(){
+        this.angle = 360 - this.angle;
+    }
+
     //updates the ball's position
-    update(angle){
-        this.updateAngle(angle);
+    update(angle, bricks, x){
+        this.updateAngle(angle, bricks);
         this.updateSlope();
 
         this.position.x += this.speed.x * this.slope.x;
@@ -77,6 +107,7 @@ class Ball{
         if(this.isMoving() && this.position.y >= this.gameHeight - this.radius){
             this.stop();
             this.position.y = this.gameHeight - this.radius;
+            this.position.x = x;
             this.angle = 90;
         };
     }
