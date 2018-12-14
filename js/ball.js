@@ -12,26 +12,16 @@ class Ball{
 
         this.slope = {x: 0, y: -1};
         this.angle = 90;
-
-        this.moving = false;
         this.speed = {x: 0, y: 0};
-
-        this.number = number;
     }
 
-    //returns angle of direction
-    getAngle(){
-        return this.angle;
-    }
-
-    getNumber(){
-        return this.number;
-    }
+    //getters
+    getAngle(){ return this.angle; }
+    getX(){ return this.position.x; }
+    getY(){ return this.position.y; }
 
     //returns true if the ball is moving, false otherwise
-    isMoving(){
-        return this.moving;
-    }
+    isMoving(){ return this.speed.x != 0 || this.speed.y != 0; }
 
     //draws the ball
     draw(ctx){
@@ -44,28 +34,12 @@ class Ball{
 
     //ball starts moving
     move(){
-        this.moving = true;
         this.speed = { x: 8, y: 8 };
     }
 
     //stops ball
     stop(){
-        this.moving = false;
         this.speed = { x: 0, y: 0 };
-    }
-
-    //rotates the direction to the right
-    rotateRight(){
-        if(!this.moving && this.angle > 0){
-            this.angle -= 5;
-        };
-    }
-
-    //rotates the direction to the left
-    rotateLeft(){
-        if(!this.moving && this.angle < 180){
-            this.angle += 5;
-        };
     }
 
     //recalculates the slope
@@ -75,8 +49,8 @@ class Ball{
     }
 
     //updates angle
-    updateAngle(){
-        if(this.moving){
+    updateAngle(angle){
+        if(this.isMoving()){
             //if ball touches left or right
             if(this.position.x < 0 + this.radius || this.position.x > this.gameWidth-this.radius){
                 if(this.slope.y <= 0) this.angle = 180 - this.angle;
@@ -86,31 +60,21 @@ class Ball{
             if(this.position.y < 0 + this.radius){
                 this.angle = 360 - this.angle;
             };
+        }else{
+            this.angle = angle;
         };
-    }
-
-    //resets game
-    reset(){
-        this.position = {
-            x: this.gameWidth / 2,
-            y: this.gameHeight - this.radius
-        };
-
-        this.moving = false; 
-        this.speed = {x: 0, y: 0};
-        this.angle = 90;
     }
 
     //updates the ball's position
-    update(){
-        this.updateAngle();
+    update(angle){
+        this.updateAngle(angle);
         this.updateSlope();
 
         this.position.x += this.speed.x * this.slope.x;
         this.position.y += this.speed.y * this.slope.y;
 
         //ball stops when it touches bottom
-        if(this.moving && this.position.y >= this.gameHeight - this.radius){
+        if(this.isMoving() && this.position.y >= this.gameHeight - this.radius){
             this.stop();
             this.position.y = this.gameHeight - this.radius;
             this.angle = 90;

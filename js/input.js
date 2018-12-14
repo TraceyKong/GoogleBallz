@@ -1,5 +1,5 @@
-class InputHandler{
-    constructor(ball){
+class BallInputHandler{
+    constructor(ball, i){
         document.addEventListener('keydown', event => {
 
             switch(event.keyCode){
@@ -8,21 +8,34 @@ class InputHandler{
                     if(!ball.isMoving()){
                         setTimeout(function(){
                             ball.move();
-                        }, ball.getNumber() * 100);
+                        }, i * 100);
                         break;
                     };
-
-                //left arrow key
-                case 37:  
-                    ball.rotateLeft();
-                    break;
-
-                //right arrow key
-                case 39: 
-                    ball.rotateRight();
-                    break;
             };
 
+        })
+    }
+}
+
+class ArrowInputHandler{
+    constructor(arrow, ball){
+        document.addEventListener('keydown', event => {
+
+            switch(event.keyCode){
+                //left arrow
+                case 37:
+                    if(!ball.isMoving()){
+                        arrow.rotateLeft();
+                    };
+                    break;
+
+                //right arrow
+                case 39:
+                    if(!ball.isMoving()){
+                        arrow.rotateRight();
+                    };
+                    break;
+            };
         })
     }
 }
