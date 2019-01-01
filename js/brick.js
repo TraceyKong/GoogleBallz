@@ -1,34 +1,32 @@
 class Brick{
 
-    constructor(x, y){
-        this.width = 100;
-        this.height = 100;
-
-        this.position = { x: x, y: y };
-
+    constructor(canvas, position){
+        this.canvas = canvas;
+        this.WIDTH = 40;
+        this.HEIGHT = 40;
+        this.position = position;
         this.power = 12;
     }
 
-    getTop(){ return this.position.y; }
-    getBottom(){ return this.position.y + this.height; }
-    getLeft(){ return this.position.x; }
-    getRight(){ return this.position.x + this.width; }
-    
+    getTop(){ return this.position.getY(); }
+    getBottom(){ return this.position.getY() + this.HEIGHT; }
+    getLeft(){ return this.position.getX(); }
+    getRight(){ return this.position.getX() + this.WIDTH; }
+
     isActive(){ return this.power != 0; }
 
-    draw(ctx){
-        ctx.beginPath();
-        ctx.rect(this.position.x, this.position.y, this.width, this.height);
-        ctx.fillStyle = "red";
-        ctx.fill();
-        ctx.fillStyle = "black";
-        ctx.font = "20px Arial";
-        ctx.textAlign="center";
-        ctx.textBaseline = "middle"; 
-        ctx.fillText(this.power, this.position.x + this.width/2, this.position.y + this.height/2);
-        ctx.stroke();
+    draw(){
+        this.canvas.draw().beginPath();
+        this.canvas.draw().rect(this.position.getX(), this.position.getY(), this.WIDTH, this.HEIGHT);
+        this.canvas.draw().fillStyle = "red";
+        this.canvas.draw().fill();
+        this.canvas.draw().fillStyle = "black";
+        this.canvas.draw().font = "14px Arial";
+        this.canvas.draw().textAlign = "center";
+        this.canvas.draw().textBaseline = "middle";
+        this.canvas.draw().fillText(this.power, this.position.getX() + this.WIDTH/2, this.position.getY() + this.HEIGHT/2);
+        this.canvas.draw().stroke();
     }
 
     decreasePower(){ this.power--; }
-
 }
