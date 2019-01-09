@@ -66,7 +66,7 @@ $(function(){
                     balls[i].getPosition().setX(startX);
                 }
             }
-            firstBall != -1;
+            firstBall = -1;
         }
 
         for(var i = 0; i < bricks.length; i++){
