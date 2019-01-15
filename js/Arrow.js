@@ -1,5 +1,10 @@
+/** Class representing an arrow. */
 class Arrow{
-    
+    /**
+     * Creates an arrow.
+     * @param {Canvas} canvas - The canvas.
+     * @param {Position} ballPosition - The ball's position.
+     */
     constructor(canvas, ballPosition){
         this.canvas = canvas;
         this.LENGTH = 100;
@@ -9,10 +14,12 @@ class Arrow{
         this.angle = 90;
     }
 
+    //getters
     getAngle(){ return this.angle; }
 
-    resetAngle(){ this.angle = 90; }
-
+    /**
+     * Draws the arrow on the canvas.
+     */
     draw(){
         this._update();
         this.canvas.draw().beginPath();
@@ -23,14 +30,23 @@ class Arrow{
         this.canvas.draw().lineWidth = 1;
     }
 
+    /**
+     * Rotates the arrow to the left, which increments the angle by 1.
+     */
     rotateLeft(){
         if(this.angle < 180) this.angle += 1;
     }
 
+    /**
+     * Rotates the arrow to the right, which decrements the angle by 1.
+     */
     rotateRight(){
         if(this.angle > 0) this.angle -= 1;
     }
 
+    /**
+     * Updates the arrow's end's position.
+     */
     _update(){
         this.end.setX(this.start.getX() + this.LENGTH * Math.cos(this.angle * (Math.PI / 180)));
         this.end.setY(this.start.getY() + this.LENGTH * Math.sin((this.angle + 180) * (Math.PI / 180)));
