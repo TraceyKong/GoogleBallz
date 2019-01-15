@@ -24,7 +24,7 @@ class Arrow{
         this._update();
         this.canvas.draw().beginPath();
         this.canvas.draw().moveTo(this.start.getX(), this.start.getY());
-        this.canvas.draw().lineWidth = 5
+        this.canvas.draw().lineWidth = 3
         this.canvas.draw().lineTo(this.end.getX(), this.end.getY());
         this.canvas.draw().stroke();
         this.canvas.draw().lineWidth = 1;

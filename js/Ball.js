@@ -5,7 +5,7 @@ class Ball{
      * @param {Canvas} canvas - the canvas.
      */
     constructor(canvas){
-        this.RADIUS = 10;
+        this.RADIUS = 4;
         this.canvas = canvas;
         this.position = canvas.getInitialPosition();
         this.movement = new Movement(90, 0);

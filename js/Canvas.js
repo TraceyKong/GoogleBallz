@@ -18,7 +18,7 @@ class Canvas{
 
     //Gets the position of where the balls should start from in a new game.
     getInitialPosition(){
-        return new Position(this.width/2, this.height - 10);
+        return new Position(this.width/2, this.height - 5);
     }
 
 }
