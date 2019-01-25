@@ -7,7 +7,7 @@ class Arrow{
      */
     constructor(canvas, ballPosition){
         this.canvas = canvas;
-        this.LENGTH = 100;
+        this.LENGTH = 300;
         this.start = ballPosition;
         this.end = canvas.getInitialPosition();
         this.end.setY(this.end.getY() - this.LENGTH);

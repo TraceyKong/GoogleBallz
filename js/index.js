@@ -8,10 +8,14 @@ $(function(){
 
     var arrow = new Arrow(canvas, balls[0].getPosition());
 
-    var bricks = []
+    var bricks = [];
+    var cells = [];
     
-    for(var i = 0; i < 2; i++){
-        bricks.push(new Brick(canvas, new Position((i+1) * 50, 200)));
+    for(var i = 0; i < 7; i++){
+        for(var j = 0; j < 4; j++){
+            bricks.push(new Brick(canvas, new Position((i) * 44 + 4, j * 44 + 19)));
+            cells.push(new Cell(bricks[bricks.length], i, j))
+        }
     }
 
     var bounce = new Bounce(canvas, bricks, balls[0].getRadius());
@@ -71,7 +75,12 @@ $(function(){
 
         for(var i = 0; i < bricks.length; i++){
             if(bricks[i].isActive()) bricks[i].draw();
-            else bricks.splice(i, 1);
+            else{
+                var remove = bricks[i];
+                bricks[i] = bricks[bricks.length - 1];
+                bricks.splice(bricks.length - 1, 1);
+                remove = null;
+            };
         }
         
         requestAnimationFrame(gameLoop);
