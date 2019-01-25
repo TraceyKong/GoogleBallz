@@ -25,7 +25,7 @@ $(function(){
     var nextMove;
 
     var startTime;
-    var firstBall = -1;
+    var firstBall = undefined;
 
     $('#startGame').click(function(){
         if(!balls[0].isMoving()){
@@ -57,7 +57,7 @@ $(function(){
         for(var i = 0; i< balls.length; i++){
             if(Date.now() - startTime > 200 * i){
                 balls[i].move(bounce);
-                if(!balls[i].isMoving() && firstBall == -1) firstBall = i;
+                if(!balls[i].isMoving() && firstBall == undefined) firstBall = i;
             }
 
             balls[i].draw();
@@ -70,7 +70,7 @@ $(function(){
                     balls[i].getPosition().setX(startX);
                 }
             }
-            firstBall = -1;
+            firstBall = undefined;
         }
 
         for(var i = 0; i < bricks.length; i++){
