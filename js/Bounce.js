@@ -3,12 +3,12 @@ class Bounce{
     /**
      * Creates Bounce.
      * @param {Canvas} canvas 
-     * @param {Bricks array} bricks 
+     * @param {Cells 2D array} cells
      * @param {number} radius 
      */
-    constructor(canvas, bricks, radius){
+    constructor(canvas, cells, radius){
         this.canvas = canvas;
-        this.bricks = bricks;
+        this.cells = cells;
         this.radius = radius;
     }
 
@@ -37,6 +37,10 @@ class Bounce{
      * @param {Movement} movement - movement of the ball.
      */
     bounceBricks(position, movement){
+        
+
+
+        //bounce off edges but not corners
         for(var i = 0; i < this.bricks.length; i++){
             if(position.getX() > this.bricks[i].getLeft() && position.getX() < this.bricks[i].getRight()){
                 if(position.getY() > this.bricks[i].getTop() - this.radius && position.getY() < this.bricks[i].getBottom() + this.radius){

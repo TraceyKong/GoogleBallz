@@ -19,6 +19,8 @@ class Brick{
     getLeft(){ return this.position.getX(); }
     getRight(){ return this.position.getX() + this.WIDTH; }
 
+    setY(y){ this.position.setY(y); }
+
     /**
      * Tells whether the brick still has power
      * @return {boolean} true if the brick power is more than 0, false otherwise.
