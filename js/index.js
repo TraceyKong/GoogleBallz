@@ -11,10 +11,19 @@ $(function(){
     var bricks = [];
     var cells = [];
     
-    for(var i = 0; i < 7; i++){
-        for(var j = 0; j < 4; j++){
-            bricks.push(new Brick(canvas, new Position((i) * 44 + 4, j * 44 + 19)));
-            cells.push(new Cell(bricks[bricks.length], i, j))
+    for(var row = 0; row < 4; row++){
+        cells.push([]);
+        for(var col = 0; col < 7; col++){
+            var brick = new Brick(canvas, new Position(col * 44 + 4, row * 44 + 19));
+            bricks.push(brick);
+            cells[row].push(new Cell(brick, row, col))
+        }
+    }
+
+    for(var row = 0; row < 7; row++){
+        cells.push([]);
+        for(var col = 4; col < 7; col++){
+            cells[row].push(new Cell(null, row, col));
         }
     }
 
@@ -78,8 +87,9 @@ $(function(){
             else{
                 var remove = bricks[i];
                 bricks[i] = bricks[bricks.length - 1];
+                bricks[bricks.length - 1] = remove;
                 bricks.splice(bricks.length - 1, 1);
-                remove = null;
+                console.log("brick " + i + "deleted.");
             };
         }
         
