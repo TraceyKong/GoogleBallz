@@ -5,7 +5,7 @@ class Ball{
      * @param {Canvas} canvas - the canvas.
      */
     constructor(canvas){
-        this.RADIUS = 4;
+        this.RADIUS = 6;
         this.canvas = canvas;
         this.position = canvas.getInitialPosition();
         this.movement = new Movement(90, 0);
@@ -44,7 +44,7 @@ class Ball{
      */
     move(bounce){
         bounce.bounceWall(this.position, this.movement);
-        bounce.bounceBricks(this.position, this.movement);
+        bounce.bounceCells(this.position, this.movement);
         this.position.move(this.movement);
 
         if(this.isMoving() && bounce.bottomTouched(this.position)){

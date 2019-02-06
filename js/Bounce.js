@@ -32,25 +32,29 @@ class Bounce{
     }
 
     /**
-     * Handles the bouncings against the bricks.
+     * Handles the bouncings against the cells.
      * @param {Position} position - position of a ball.
      * @param {Movement} movement - movement of the ball.
      */
-    bounceBricks(position, movement){
+    bounceCells(position, movement){
         
 
 
         //bounce off edges but not corners
-        for(var i = 0; i < this.bricks.length; i++){
-            if(position.getX() > this.bricks[i].getLeft() && position.getX() < this.bricks[i].getRight()){
-                if(position.getY() > this.bricks[i].getTop() - this.radius && position.getY() < this.bricks[i].getBottom() + this.radius){
-                    movement.reverseY();
-                    this.bricks[i].decreasePower();
-                }
-            }else if(position.getY() > this.bricks[i].getTop() && position.getY() < this.bricks[i].getBottom()){
-                if(position.getX() > this.bricks[i].getLeft() - this.radius && position.getX() < this.bricks[i].getRight() + this.radius){
-                    movement.reverseX();
-                    this.bricks[i].decreasePower();
+        for(var row = 0; row < this.cells.length; row++){
+            for(var col = 0; col < this.cells[0].length; col++){
+                if(this.cells[row][col].isActive()){
+                    if(position.getX() > this.cells[row][col].getLeft() && position.getX() < this.cells[row][col].getRight()){
+                        if(position.getY() > this.cells[row][col].getTop() - this.radius && position.getY() < this.cells[row][col].getBottom() + this.radius){
+                            movement.reverseY();
+                            this.cells[row][col].decreasePower();
+                        }
+                    }else if(position.getY() > this.cells[row][col].getTop() && position.getY() < this.cells[row][col].getBottom()){
+                        if(position.getX() > this.cells[row][col].getLeft() - this.radius && position.getX() < this.cells[row][col].getRight() + this.radius){
+                            movement.reverseX();
+                            this.cells[row][col].decreasePower();
+                        }
+                    }
                 }
             }
         }
