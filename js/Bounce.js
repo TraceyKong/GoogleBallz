@@ -2,9 +2,9 @@
 class Bounce{
     /**
      * Creates Bounce.
-     * @param {Canvas} canvas 
+     * @param {Canvas} canvas
      * @param {Cells 2D array} cells
-     * @param {number} radius 
+     * @param {number} radius
      */
     constructor(canvas, cells, radius){
         this.canvas = canvas;
@@ -50,29 +50,29 @@ class Bounce{
                     surroundingCells[1].decreasePower();
                 }
             }else if(surroundingCells[2] != null && surroundingCells[2].isActive()){
-                if(this._hitCellOnSameRow(position, surroundingCells[2])){
+                if(this._hitCellOnSameRow1(position, surroundingCells[2])){
                         movement.reverseX();
                         surroundingCells[2].decreasePower();
-                }else if(this._hitCellOnSameRow(position, surroundingCells[0])){
+                }else if(this._hitCellOnSameRow1(position, surroundingCells[0])){
                     movement.reverseX();
                     surroundingCells[0].decreasePower();
                 }
             }
         }else if(surroundingCells[1] != null && surroundingCells[1].isActive()){
-            if(this._hitCellOnSameColumn(position, surroundingCells[1])){
+            if(this._hitCellOnSameColumn1(position, surroundingCells[1])){
                 movement.reverseY();
                 surroundingCells[1].decreasePower();
             }else if(surroundingCells[2] != null && surroundingCells[2].isActive()){
-                if(this._hitCellOnSameColumn(position, surroundingCells[2])){
+                if(this._hitCellOnSameColumn1(position, surroundingCells[2])){
                         movement.reverseY();
                         surroundingCells[2].decreasePower();
-                    }
+                }
             }
         }else if(surroundingCells[2] != null && surroundingCells[2].isActive()){
-            if(this._hitCellOnSameRow(position, surroundingCells[2])){
+            if(this._hitCellOnSameRow1(position, surroundingCells[2])){
                 movement.reverseX();
                 surroundingCells[2].decreasePower();
-            }else if(this._hitCellOnSameColumn(position, surroundingCells[2])){
+            }else if(this._hitCellOnSameColumn1(position, surroundingCells[2])){
                 movement.reverseY();
                 surroundingCells[2].decreasePower();
             }
@@ -125,7 +125,7 @@ class Bounce{
                         surroundingCells.push(null);//no cell 2
                         surroundingCells.push(null);//no cell 3
                     }
-                }   
+                }
             }else{
                 if(cellCol < this.cells.length - 1){
                     //cell 1
@@ -157,21 +157,30 @@ class Bounce{
             }
         }
 
-        // for(var i = 0; i < surroundingCells.length; i++){
-        //     if(surroundingCells[i] != null) surroundingCells[i].glow();
-        // } 
         return surroundingCells;
     }
 
     _hitCellOnSameRow(position, cell){
         if(position.getY() > cell.getTop() + 2 && position.getY() < cell.getBottom() - 2)
-            return position.getX() > cell.getLeft() - this.radius + 2 && position.getX() < cell.getRight() + this.radius - 2;
+            return position.getX() > cell.getLeft() - this.radius && position.getX() < cell.getRight() + this.radius;
         return false;
     }
 
     _hitCellOnSameColumn(position, cell){
         if(position.getX() > cell.getLeft() + 2 && position.getX() < cell.getRight() - 2)
-            return position.getY() > cell.getTop() - this.radius + 2 && position.getY() < cell.getBottom() + this.radius - 2;
+            return position.getY() > cell.getTop() - this.radius && position.getY() < cell.getBottom() + this.radius;
+        return false;
+    }
+
+    _hitCellOnSameRow1(position, cell){
+      if(position.getY() > cell.getTop() - 1 && position.getY() < cell.getBottom() + 1)
+          return position.getX() > cell.getLeft() - this.radius && position.getX() < cell.getRight() + this.radius;
+      return false;
+    }
+
+    _hitCellOnSameColumn1(position, cell){
+        if(position.getX() > cell.getLeft() - 1 && position.getX() < cell.getRight() + 1)
+            return position.getY() > cell.getTop() - this.radius && position.getY() < cell.getBottom() + this.radius;
         return false;
     }
 

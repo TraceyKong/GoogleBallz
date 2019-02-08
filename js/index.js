@@ -2,7 +2,7 @@ $(function(){
     var canvas = new Canvas();
 
     var balls = [];
-    for(var i = 0; i < 1; i++){
+    for(var i = 0; i < 3; i++){
         balls.push(new Ball(canvas));
     }
 
@@ -10,8 +10,8 @@ $(function(){
 
     var bricks = [];
     var cells = [];
-    
-    for(var row = 0; row < 1; row++){
+
+    for(var row = 0; row < 4; row++){
         cells.push([]);
         bricks.push([]);
         for(var col = 0; col < 7; col++){
@@ -21,7 +21,7 @@ $(function(){
         }
     }
 
-    for(var row = 1; row < 7; row++){
+    for(var row = 4; row < 7; row++){
         cells.push([]);
         bricks.push([]);
         for(var col = 0; col < 7; col++){
@@ -39,8 +39,10 @@ $(function(){
     var startTime;
     var firstBall = undefined;
 
+    var inGame = false;
+
     $('#startGame').click(function(){
-        if(!balls[0].isMoving()){
+        if(!inGame){
             for(var i = 0; i < balls.length; i++){
                 nextMove = new Movement(arrow.getAngle(), 5);
                 balls[i].setMovement(nextMove);
@@ -49,6 +51,7 @@ $(function(){
             inputHandler = new ArrowInputHandler(arrow, balls[0]);
             startTime = Date.now();
             this.blur();
+            inGame = true;
         }
     });
 
@@ -62,27 +65,31 @@ $(function(){
     function gameLoop(){
         canvas.draw().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-        if(!ballsMoving()){
+        if(!inGame){
             arrow.draw();
         }
-        
+
         for(var i = 0; i< balls.length; i++){
             if(Date.now() - startTime > 200 * i){
                 balls[i].move(bounce);
-                if(!balls[i].isMoving() && firstBall == undefined) firstBall = i;
+                if(inGame && !balls[i].isMoving() && firstBall == undefined){
+                  firstBall = i;
+                }
             }
 
             balls[i].draw();
         }
 
-        if(firstBall != undefined && !ballsMoving()){
+        if(firstBall != undefined && inGame && !ballsMoving()){
             var startX = balls[firstBall].getPosition().getX();
             for(var i = 0; i < balls.length; i++){
                 if(i != firstBall){
                     balls[i].getPosition().setX(startX);
                 }
             }
+            inGame = false;
             firstBall = undefined;
+
             for(var row = bricks.length - 1; row > 0; row--){
                 bricks[row] = bricks[row-1];
                 for(var col = 0; col < cells[0].length; col++){
@@ -97,12 +104,6 @@ $(function(){
 
         for(var row = 0; row < cells.length; row++){
             for(var col = 0; col < cells[0].length; col++){
-                cells[row][col].draw();
-            }
-        }
-
-        for(var row = 0; row < cells.length; row++){
-            for(var col = 0; col < cells[0].length; col++){
                 if(cells[row][col].isActive()){
                     bricks[row][col].draw();
                 }else{
@@ -111,7 +112,7 @@ $(function(){
                 }
             }
         }
-        
+
         requestAnimationFrame(gameLoop);
     }
 

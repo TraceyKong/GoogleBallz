@@ -14,7 +14,7 @@ class Position{
     getX(){ return this.x; };
     getY(){ return this.y; };
 
-    /** 
+    /**
      * Assign new values to the position.
      */
     setX(x){ this.x = x; }
@@ -22,11 +22,15 @@ class Position{
 
     /**
      * Updates the position according to movement.
-     * @param {Movement} movement 
+     * @param {Movement} movement
      */
     move(movement){
         this.x += movement.getDx();
         this.y += movement.getDy();
+    }
+
+    getNextPosition(movement){
+      return new Position(this.x + movement.getDx(), this.y += movement.getDy());
     }
 
 }

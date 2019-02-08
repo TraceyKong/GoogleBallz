@@ -8,13 +8,13 @@ class Cell{
         this.y = y;
         this.position = new Position(y * this.HEIGHT + y, x * this.WIDTH + x + 17)
     }
-    
+
     getTop(){ return this.position.getY(); }
     getBottom(){ return this.position.getY() + this.HEIGHT; }
     getLeft(){ return this.position.getX(); }
     getRight(){ return this.position.getX() + this.WIDTH; }
 
-    isActive(){ 
+    isActive(){
         if(this.brick) return this.brick.isActive();
         else return false;
     }
@@ -37,9 +37,9 @@ class Cell{
         this.canvas.draw().stroke();
     }
 
-    setBrick(brick){ 
+    setBrick(brick){
         this.brick = brick;
-        if(this.brick)  this.brick.setY(this.position.getY());
+        if(this.brick)  this.brick.setY(this.position.getY() + 2);
     }
 
     decreasePower(){ if(this.brick) this.brick.decreasePower(); }
