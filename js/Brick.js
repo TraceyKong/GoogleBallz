@@ -10,7 +10,7 @@ class Brick{
         this.WIDTH = 40;
         this.HEIGHT = 40;
         this.position = position;
-        this.power = 12;
+        this.power = 5;
     }
 
     //getters
@@ -35,8 +35,8 @@ class Brick{
         this.canvas.draw().rect(this.position.getX(), this.position.getY(), this.WIDTH, this.HEIGHT);
         this.canvas.draw().fillStyle = "red";
         this.canvas.draw().fill();
-        this.canvas.draw().fillStyle = "black";
-        this.canvas.draw().font = "14px Arial";
+        this.canvas.draw().fillStyle = "white";
+        this.canvas.draw().font = "bold 14px Arial ";
         this.canvas.draw().textAlign = "center";
         this.canvas.draw().textBaseline = "middle";
         this.canvas.draw().fillText(this.power, this.position.getX() + this.WIDTH/2, this.position.getY() + this.HEIGHT/2);

@@ -7,7 +7,7 @@ class Arrow{
      */
     constructor(canvas, ballPosition){
         this.canvas = canvas;
-        this.LENGTH = 300;
+        this.LENGTH = 100;
         this.start = ballPosition;
         this.end = canvas.getInitialPosition();
         this.end.setY(this.end.getY() - this.LENGTH);
@@ -25,9 +25,11 @@ class Arrow{
         this.canvas.draw().beginPath();
         this.canvas.draw().moveTo(this.start.getX(), this.start.getY());
         this.canvas.draw().lineWidth = 3
+        this.canvas.draw().strokeStyle = "white";
         this.canvas.draw().lineTo(this.end.getX(), this.end.getY());
         this.canvas.draw().stroke();
         this.canvas.draw().lineWidth = 1;
+        this.canvas.draw().strokeStyle = "black";
     }
 
     /**
