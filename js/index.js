@@ -2,7 +2,7 @@ $(function(){
     var canvas = new Canvas();
 
     var balls = [];
-    for(var i = 0; i < 10; i++){
+    for(var i = 0; i < 1; i++){
         balls.push(new Ball(canvas));
     }
 
@@ -17,8 +17,7 @@ $(function(){
         for(var col = 0; col < 7; col++){
             var brick = new Brick(canvas, new Position(col * 44 + 2 + col, row * 44 + 19 + row));
             bricks[row].push(brick);
-            cells[row].push(new Cell(canvas, brick, col, row));
-            console.log("Cell " + row + "," + col + " x position: " + cells[row][col].isActive());
+            cells[row].push(new Cell(canvas, brick, row, col));
         }
     }
 
@@ -27,8 +26,7 @@ $(function(){
         bricks.push([]);
         for(var col = 0; col < 7; col++){
             bricks[row].push(null);
-            cells[row].push(new Cell(canvas, null, col, row));
-            console.log("Cell " + row + "," + col + " x position: " + cells[row][col].isActive());
+            cells[row].push(new Cell(canvas, null, row, col));
         }
     }
 
@@ -61,27 +59,6 @@ $(function(){
         return false;
     }
 
-    function inCell(ball){
-        var cellRow = undefined;
-        var cellCol = undefined;
-        for(var row = 0; row < cells.length; row++){
-            if(ball.getPosition().getY() > cells[row][0].getTop() + 1 &&
-                ball.getPosition().getY() < cells[row][0].getBottom() + 1){
-                    for(var col = 0; col < cells[row].length; col++){
-                        if(ball.getPosition().getX() > cells[row][col].getLeft() + 1 &&
-                            ball.getPosition().getX() < cells[row][col].getRight() + 1){
-                                cellRow = row;
-                                cellCol = col;
-                            }
-                    }
-            }
-        }
-
-        if(cellRow && cellCol){
-            
-        }
-    }
-
     function gameLoop(){
         canvas.draw().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
@@ -91,7 +68,6 @@ $(function(){
         
         for(var i = 0; i< balls.length; i++){
             if(Date.now() - startTime > 200 * i){
-
                 balls[i].move(bounce);
                 if(!balls[i].isMoving() && firstBall == undefined) firstBall = i;
             }
@@ -108,6 +84,7 @@ $(function(){
             }
             firstBall = undefined;
         }
+
         for(var row = 0; row < cells.length; row++){
             for(var col = 0; col < cells[0].length; col++){
                 cells[row][col].draw();

@@ -14,6 +14,7 @@ class Ball{
     //getters
     getRadius(){ return this.RADIUS; }
     getPosition(){ return this.position; }
+    getMovement(){ return this.movement; }
 
     /**
      * Tells whether the ball is moving or not.

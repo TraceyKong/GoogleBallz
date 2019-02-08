@@ -10,7 +10,7 @@ class Brick{
         this.WIDTH = 40;
         this.HEIGHT = 40;
         this.position = position;
-        this.power = 12;
+        this.power = 2;
     }
 
     //getters

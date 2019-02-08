@@ -6,7 +6,7 @@ class Cell{
         this.HEIGHT = 44;
         this.x = x;
         this.y = y;
-        this.position = new Position(x * this.WIDTH + x, y * this.HEIGHT + 17 + y)
+        this.position = new Position(y * this.HEIGHT + y, x * this.WIDTH + x + 17)
     }
     
     getTop(){ return this.position.getY(); }
@@ -22,12 +22,17 @@ class Cell{
     draw(){
         this.canvas.draw().beginPath();
         this.canvas.draw().rect(this.position.getX(), this.position.getY(), this.WIDTH, this.HEIGHT);
+        // this.canvas.draw().fillStyle = "black";
+        // this.canvas.draw().font = "14px Arial";
+        // this.canvas.draw().textAlign = "center";
+        // this.canvas.draw().textBaseline = "middle";
+        // this.canvas.draw().fillText(this.x + ", " + this.y, this.position.getX() + this.WIDTH/2, this.position.getY() + this.HEIGHT/2);
         this.canvas.draw().stroke();
     }
 
     glow(){
         this.draw();
-        this.canvas.draw().fillStyle = "red";
+        this.canvas.draw().fillStyle = "yellow";
         this.canvas.draw().fill();
         this.canvas.draw().stroke();
     }
