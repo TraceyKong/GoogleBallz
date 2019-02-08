@@ -157,9 +157,9 @@ class Bounce{
             }
         }
 
-        for(var i = 0; i < surroundingCells.length; i++){
-            if(surroundingCells[i] != null) surroundingCells[i].glow();
-        } 
+        // for(var i = 0; i < surroundingCells.length; i++){
+        //     if(surroundingCells[i] != null) surroundingCells[i].glow();
+        // } 
         return surroundingCells;
     }
 

@@ -11,7 +11,7 @@ $(function(){
     var bricks = [];
     var cells = [];
     
-    for(var row = 0; row < 4; row++){
+    for(var row = 0; row < 1; row++){
         cells.push([]);
         bricks.push([]);
         for(var col = 0; col < 7; col++){
@@ -21,7 +21,7 @@ $(function(){
         }
     }
 
-    for(var row = 4; row < 7; row++){
+    for(var row = 1; row < 7; row++){
         cells.push([]);
         bricks.push([]);
         for(var col = 0; col < 7; col++){
@@ -83,6 +83,16 @@ $(function(){
                 }
             }
             firstBall = undefined;
+            for(var row = bricks.length - 1; row > 0; row--){
+                bricks[row] = bricks[row-1];
+                for(var col = 0; col < cells[0].length; col++){
+                    cells[row][col].setBrick(bricks[row][col]);
+                }
+            }
+            bricks[0] = [null,null,null,null,null,null,null];
+            for(var col = 0; col < cells[0].length; col++){
+                cells[0][col].setBrick(bricks[0][col]);
+            }
         }
 
         for(var row = 0; row < cells.length; row++){
